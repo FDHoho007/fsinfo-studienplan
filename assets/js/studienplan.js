@@ -1,3 +1,13 @@
+function get_luma(hex_color) {
+    hex_color = hex_color.replace("#", "");
+    let rgb = parseInt(hex_color, 16);   // convert rrggbb to decimal
+    let r = (rgb >> 16) & 0xff;  // extract red
+    let g = (rgb >>  8) & 0xff;  // extract green
+    let b = (rgb >>  0) & 0xff;  // extract blue
+
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+}
+
 function csv_to_data(csv) {
     let data = [];
     for(let r of csv.split("\n")) {
@@ -59,6 +69,8 @@ function load(data_as_csv) {
                 for(let key in mod)
                     div_m.setAttribute(key, mod[key]);
                 div_m.style.background = mod.color;
+                if(get_luma(mod.color) > 145)
+                    div_m.style.color = "black";
                 let div_t = document.createElement("div");
                 div_t.innerText = mod.name + " (" + mod.ects + ")";
                 div_m.appendChild(div_t);
