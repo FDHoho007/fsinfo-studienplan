@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+ <html lang="de">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Dein Studienplan</title>
+    <meta name="author" content="Fabian Dietrich">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="assets/js/studienplan.js"></script>
+    <script src="assets/js/loadfromfile.js" defer></script>
+
+</head>
+
+<body>
+
+    <h1>Dein Studienplan</h1>
+
+    <main id="selection">
+
+        <p>Bitte wählen sie eine lokale Datei oder ein unten aufgeführtes Beispiel aus.</p>
+
+        <input type="file" id="file-selection">
+
+        <div id="examples">
+            <!--<button onclick="fetch('examples/b-inf-wi.csv').then(r => r.text()).then(csv => load(csv))">Bachelor Informatik<br>Start Wintersemester</button>
+            <button onclick="fetch('examples/b-inf-so.csv').then(r => r.text()).then(csv => load(csv))">Bachelor Informatik<br>Start Sommersemester</button>-->
+            <button onclick="fetch('examples/b-ic-wi.csv').then(r => r.text()).then(csv => load(csv))">Bachelor Internet Computing<br>Start Wintersemester</button>
+            <button onclick="fetch('examples/b-ic-so.csv').then(r => r.text()).then(csv => load(csv))">Bachelor Internet Computing<br>Start Sommersemester</button>
+            <!--<button onclick="fetch('examples/b-ma-wi.csv').then(r => r.text()).then(csv => load(csv))">Bachelor Mathematik<br>Start Wintersemester</button>-->
+        </div>
+
+    </main>
+
+    <main id="invalid-file" style="display: none;">
+
+        <p>Die ausgewählte Datei ist kein kompatibler Studienplan!</p>
+    
+    </main>
+
+    <main id="studienplan" style="display: none;">
+
+    </main>
+
+</body>
+
+ </html>

@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+main {
+    margin-top: 100px;
+}
+
+#examples {
+    margin-top: 40px;
+}
+
+#studienplan {
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#studienplan button {
+    margin-top: 50px;
+}
+
+.semester {
+    display: flex;
+    border-top: 2px solid #999999;
+    padding: 7px;
+}
+
+.module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 145px;
+    height: 80px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    /*  This would be used for drag and drop
+    cursor: pointer; */
+    color: white;
+}
