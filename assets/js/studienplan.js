@@ -99,7 +99,7 @@ function updateModule(e) {
             e.style.color = "black";
         e.querySelector("div").style.textDecoration = "";
     }
-    e.querySelector("div").innerText = getModuleName(name) + "(" + e.getAttribute("ects") + ")";
+    e.querySelector("div").innerText = getModuleName(name) + " (" + e.getAttribute("ects") + ")";
 }
 
 function isStateCompleted(name) {
