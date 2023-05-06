@@ -43,6 +43,7 @@ function addDraggable(element) {
                 if (dragging) {
                     fixModule(element, event);
                     pruneModules();
+                    updateSemesterECTS();
                 } else {
                     changeState(element);
                 }
