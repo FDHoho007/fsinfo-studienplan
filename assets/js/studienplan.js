@@ -47,6 +47,10 @@ function load(data_as_csv) {
         main.appendChild(div_r);
         div_t.innerHTML = i++ + ". Semester (" + ects_sum + ")<hr>";
     }
+    let back_button = document.createElement("button");
+    back_button.innerText = "Zurück";
+    back_button.onclick = () => location.reload();
+    main.appendChild(back_button);
     let button = document.createElement("button");
     button.innerText = "Als Datei speichern";
     button.onclick = () => download(save(), "studienplan.csv", "text/csv");
