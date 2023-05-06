@@ -45,3 +45,8 @@ main {
     color: white;
     user-select: none;
 }
+
+.module div {
+    width: 100%;
+    word-wrap: break-word;
+}
