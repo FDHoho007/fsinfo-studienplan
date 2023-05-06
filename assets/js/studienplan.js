@@ -73,8 +73,7 @@ function save() {
 
 function updateModule(e) {
     let name = e.getAttribute("name");
-    if (name.startsWith("~") && name.endsWith("~")) {
-        name = name.substring(1, name.length - 1);
+    if (isStateCompleted(name)) {
         e.style.background = "darkgray";
         e.style.color = "white";
         e.querySelector("div").style.textDecoration = "line-through";
@@ -84,12 +83,22 @@ function updateModule(e) {
             e.style.color = "black";
         e.querySelector("div").style.textDecoration = "";
     }
-    e.querySelector("div").innerText = name + "(" + e.getAttribute("ects") + ")";
+    e.querySelector("div").innerText = getModuleName(name) + "(" + e.getAttribute("ects") + ")";
+}
+
+function isStateCompleted(name) {
+    return name.startsWith("~") && name.endsWith("~");
+}
+
+function getModuleName(name) {
+    if (isStateCompleted(name))
+        return name.substring(1, name.length - 1);
+    return name;
 }
 
 function changeState(e) {
     let name = e.getAttribute("name");
-    if (name.startsWith("~") && name.endsWith("~"))
+    if (isStateCompleted(name))
         e.setAttribute("name", name.substring(1, name.length - 1));
     else
         e.setAttribute("name", "~" + name + "~")
@@ -99,7 +108,7 @@ function changeState(e) {
 function edit(e) {
     Swal.fire({
         title: "Modul bearbeiten",
-        html: "<input type=\"text\" id=\"name\" class=\"swal2-input\" placeholder=\"Name des Moduls\" style=\"width: 65%;\" value=\"" + e.getAttribute("name") + "\">\n" +
+        html: "<input type=\"text\" id=\"name\" class=\"swal2-input\" placeholder=\"Name des Moduls\" style=\"width: 65%;\" value=\"" + getModuleName(e.getAttribute("name")) + "\">\n" +
             "<input type=\"number\" id=\"ects\" class=\"swal2-input\" placeholder=\"ECTS Punkte\" min=1 max=180 style=\"width: 65%;\" value=\"" + e.getAttribute("ects") + "\">\n" +
             "<input type=\"color\" id=\"color\" class=\"swal2-input\" placeholder= \"Farbe des Moduls\" style=\"width: 80px;\" value=\"" + e.getAttribute("color") + "\">",
         showCancelButton: true,
@@ -117,7 +126,7 @@ function edit(e) {
         }
     }).then((result) => {
         if (result.value) {
-            e.setAttribute("name", result.value.name);
+            e.setAttribute("name", isStateCompleted(e.getAttribute("name")) ? "~" + result.value.name + "~" : result.value.name);
             e.setAttribute("ects", result.value.ects);
             e.setAttribute("color", result.value.color);
             updateModule(e);
