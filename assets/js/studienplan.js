@@ -4,21 +4,21 @@ function load(data_as_csv) {
 
     let main = document.getElementById("studienplan");
     main.style.display = "";
-    while(main.children.length > 0)
+    while (main.children.length > 0)
         main.children[0].remove();
-    
+
     let width = Math.max(...data.map(i => i.length));
-    for(let row of data) {
+    for (let row of data) {
         let div_r = document.createElement("div");
         div_r.classList.add("semester");
         let ects_sum = 0;
-        for(let mod of row) {
+        for (let mod of row) {
             let div_m = document.createElement("div");
             div_m.classList.add("module");
-            if(mod == null) {
+            if (mod == null) {
                 div_m.classList.add("spacer");
             } else {
-                for(let key in mod)
+                for (let key in mod)
                     div_m.setAttribute(key, mod[key]);
                 div_m.appendChild(document.createElement("div"));
                 updateModule(div_m);
@@ -30,7 +30,7 @@ function load(data_as_csv) {
             }
             div_r.appendChild(div_m);
         }
-        for(let i = row.length; i<width; i++) {
+        for (let i = row.length; i < width; i++) {
             let div_s = document.createElement("div");
             div_s.classList.add("module");
             div_s.classList.add("spacer");
@@ -49,10 +49,10 @@ function save() {
     let main = document.getElementById("studienplan");
     let data = [];
 
-    for(let r of main.children) {
+    for (let r of main.children) {
         let row = [];
-        for(let m of r.children) {
-            if(m.classList.contains("spacer"))
+        for (let m of r.children) {
+            if (m.classList.contains("spacer"))
                 row.push(null);
             else {
                 let mod = {};
