@@ -43,4 +43,5 @@ main {
     /*  This would be used for drag and drop
     cursor: pointer; */
     color: white;
+    user-select: none;
 }
