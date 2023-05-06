@@ -5,36 +5,49 @@ function addDraggable(element) {
 
     element.onmousedown = function (event) {
 
-        let shiftX = event.clientX - element.getBoundingClientRect().left;
-        let shiftY = event.clientY - element.getBoundingClientRect().top;
+        if (event.button === 0) {
+            let dragging = false;
+            let shiftX = event.clientX - element.getBoundingClientRect().left;
+            let shiftY = event.clientY - element.getBoundingClientRect().top;
+            let origPos = {x: event.clientX, y: event.clientY};
 
-        element.style.position = 'absolute';
-        element.style.zIndex = 1000;
-        //document.body.append(element);
 
-        moveAt(event.pageX, event.pageY);
+            //document.body.append(element);
 
-        // moves the element at (pageX, pageY) coordinates
-        // taking initial shifts into account
-        function moveAt(pageX, pageY) {
-            element.style.left = pageX - shiftX + 'px';
-            element.style.top = pageY - shiftY + 'px';
+
+            // moves the element at (pageX, pageY) coordinates
+            // taking initial shifts into account
+            function moveAt(pageX, pageY) {
+                element.style.left = pageX - shiftX + 'px';
+                element.style.top = pageY - shiftY + 'px';
+            }
+
+            function onMouseMove(event) {
+                if (dragging)
+                    moveAt(event.pageX, event.pageY);
+                else if (Math.abs(origPos.x - event.clientX) + Math.abs(origPos.y - event.clientY) > 20) {
+                    dragging = true;
+                    element.style.position = 'absolute';
+                    element.style.zIndex = 1000;
+                    moveAt(event.pageX, event.pageY);
+                }
+            }
+
+            // move the element on mousemove
+            document.addEventListener('mousemove', onMouseMove);
+
+            // drop the element, remove unneeded handlers
+            element.onmouseup = function (event) {
+                document.removeEventListener('mousemove', onMouseMove);
+                element.onmouseup = null;
+                if (dragging) {
+                    fixModule(element, event);
+                    pruneModules();
+                } else {
+                    changeState(element);
+                }
+            };
         }
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-
-        // move the element on mousemove
-        document.addEventListener('mousemove', onMouseMove);
-
-        // drop the element, remove unneeded handlers
-        element.onmouseup = function (event) {
-            document.removeEventListener('mousemove', onMouseMove);
-            fixModule(element, event);
-            pruneModules();
-            element.onmouseup = null;
-        };
 
     };
 

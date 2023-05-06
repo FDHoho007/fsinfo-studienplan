@@ -22,9 +22,9 @@ function load(data_as_csv) {
                     div_m.setAttribute(key, mod[key]);
                 div_m.appendChild(document.createElement("div"));
                 updateModule(div_m);
-                div_m.onclick = () => {
-                    changeState(div_m);
-                }
+                // div_m.onclick = () => {
+                //     changeState(div_m);
+                // }
                 div_m.oncontextmenu = () => {
                     edit(div_m);
                     return false;
