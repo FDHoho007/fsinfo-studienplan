@@ -22,6 +22,9 @@ function load(data_as_csv) {
                     div_m.setAttribute(key, mod[key]);
                 div_m.appendChild(document.createElement("div"));
                 updateModule(div_m);
+                div_m.onclick = () => {
+                    changeState(div_m);
+                }
                 div_m.oncontextmenu = () => {
                     edit(div_m);
                     return false;
@@ -69,17 +72,35 @@ function save() {
 }
 
 function updateModule(e) {
-    e.style.background = e.getAttribute("color");
-    if (get_luma(e.getAttribute("color")) > 145)
-        e.style.color = "black";
-    e.querySelector("div").innerText = e.getAttribute("name") + "(" + e.getAttribute("ects") + ")";
+    let name = e.getAttribute("name");
+    if (name.startsWith("~") && name.endsWith("~")) {
+        name = name.substring(1, name.length - 1);
+        e.style.background = "darkgray";
+        e.style.color = "white";
+        e.querySelector("div").style.textDecoration = "line-through";
+    } else {
+        e.style.background = e.getAttribute("color");
+        if (get_luma(e.getAttribute("color")) > 145)
+            e.style.color = "black";
+        e.querySelector("div").style.textDecoration = "";
+    }
+    e.querySelector("div").innerText = name + "(" + e.getAttribute("ects") + ")";
+}
+
+function changeState(e) {
+    let name = e.getAttribute("name");
+    if (name.startsWith("~") && name.endsWith("~"))
+        e.setAttribute("name", name.substring(1, name.length - 1));
+    else
+        e.setAttribute("name", "~" + name + "~")
+    updateModule(e);
 }
 
 function edit(e) {
     Swal.fire({
         title: "Modul bearbeiten",
         html: "<input type=\"text\" id=\"name\" class=\"swal2-input\" placeholder=\"Name des Moduls\" style=\"width: 65%;\" value=\"" + e.getAttribute("name") + "\">\n" +
-            "<input type=\"number\" id=\"ects\" class=\"swal2-input\" placeholder=\"ECTS Punkte\" min=1 max=180 style=\"width: 80px;\" value=\"" + e.getAttribute("ects") + "\">\n" +
+            "<input type=\"number\" id=\"ects\" class=\"swal2-input\" placeholder=\"ECTS Punkte\" min=1 max=180 style=\"width: 65%;\" value=\"" + e.getAttribute("ects") + "\">\n" +
             "<input type=\"color\" id=\"color\" class=\"swal2-input\" placeholder= \"Farbe des Moduls\" style=\"width: 80px;\" value=\"" + e.getAttribute("color") + "\">",
         showCancelButton: true,
         focusConfirm: true,
