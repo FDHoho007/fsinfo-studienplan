@@ -124,8 +124,6 @@ function pruneModules() {
         }
     }
 
-    console.log(rowSize);
-
 }
 
 function initAllDragables() {

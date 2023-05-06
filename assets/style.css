@@ -47,10 +47,11 @@ main {
     cursor: pointer;
 }
 
-.spacer {
-    cursor: auto;
-}
 .module div {
     width: 100%;
     word-wrap: break-word;
+}
+
+.spacer {
+    cursor: auto;
 }
