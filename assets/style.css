@@ -40,8 +40,11 @@ main {
     margin: 5px;
     padding: 5px;
     border-radius: 6px;
-    /*  This would be used for drag and drop
-    cursor: pointer; */
     color: white;
     user-select: none;
+    cursor: pointer;
+}
+
+.spacer {
+    cursor: auto;
 }
