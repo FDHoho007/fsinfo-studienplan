@@ -44,8 +44,12 @@ main {
     cursor: pointer; */
     color: white;
     user-select: none;
+    cursor: pointer;
 }
 
+.spacer {
+    cursor: auto;
+}
 .module div {
     width: 100%;
     word-wrap: break-word;

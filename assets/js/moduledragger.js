@@ -92,7 +92,39 @@ function fixModule(module, event) {
     module.style.zIndex = '';
 }
 
-function pruneModules(){
+function getRowSize() {
+    let maxRowCount = 0;
+    for (let element of document.getElementsByClassName("semester")) {
+        let children = element.children;
+        let count = 0;
+        for (let i = children.length - 1; i >= 0; i--) {
+            if (count == 0 && children.item(i).className.includes("spacer"))
+                continue;
+            count++;
+        }
+        if (maxRowCount < count) {
+            maxRowCount = count;
+        }
+    }
+    return maxRowCount;
+}
+
+function pruneModules() {
+
+    let rowSize = getRowSize();
+    let rows = document.getElementsByClassName("semester");
+    for (let row of rows) {
+        while (row.children.length > rowSize) {
+            row.removeChild(row.lastChild);
+        }
+        while (row.children.length < rowSize) {
+            let spacer = document.createElement("div");
+            spacer.className= "module spacer";
+            row.appendChild(spacer);
+        }
+    }
+
+    console.log(rowSize);
 
 }
 
