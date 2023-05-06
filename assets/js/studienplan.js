@@ -91,6 +91,7 @@ function load(data_as_csv) {
     button.innerText = "Als Datei speichern";
     button.onclick = () => download(save(), "studienplan.csv", "text/csv");
     main.appendChild(button);
+    initAllDragables();
 }
 
 function save() {
