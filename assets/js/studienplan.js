@@ -20,12 +20,12 @@ function load(data_as_csv) {
             } else {
                 for(let key in mod)
                     div_m.setAttribute(key, mod[key]);
-                div_m.style.background = mod.color;
-                if(get_luma(mod.color) > 145)
-                    div_m.style.color = "black";
-                let div_t = document.createElement("div");
-                div_t.innerText = mod.name + " (" + mod.ects + ")";
-                div_m.appendChild(div_t);
+                div_m.appendChild(document.createElement("div"));
+                updateModule(div_m);
+                div_m.oncontextmenu = () => {
+                    edit(div_m);
+                    return false;
+                }
                 ects_sum += parseInt(mod.ects);
             }
             div_r.appendChild(div_m);
@@ -66,4 +66,40 @@ function save() {
     }
 
     return data_to_csv(data);
+}
+
+function updateModule(e) {
+    e.style.background = e.getAttribute("color");
+    if (get_luma(e.getAttribute("color")) > 145)
+        e.style.color = "black";
+    e.querySelector("div").innerText = e.getAttribute("name") + "(" + e.getAttribute("ects") + ")";
+}
+
+function edit(e) {
+    Swal.fire({
+        title: "Modul bearbeiten",
+        html: "<input type=\"text\" id=\"name\" class=\"swal2-input\" placeholder=\"Name des Moduls\" style=\"width: 65%;\" value=\"" + e.getAttribute("name") + "\">\n" +
+            "<input type=\"number\" id=\"ects\" class=\"swal2-input\" placeholder=\"ECTS Punkte\" min=1 max=180 style=\"width: 80px;\" value=\"" + e.getAttribute("ects") + "\">\n" +
+            "<input type=\"color\" id=\"color\" class=\"swal2-input\" placeholder= \"Farbe des Moduls\" style=\"width: 80px;\" value=\"" + e.getAttribute("color") + "\">",
+        showCancelButton: true,
+        focusConfirm: true,
+        confirmButtonText: "Speichern",
+        cancelButtonText: "Abbrechen",
+        preConfirm: () => {
+            const name = Swal.getPopup().querySelector("#name").value;
+            const ects = Swal.getPopup().querySelector("#ects").value;
+            const color = Swal.getPopup().querySelector("#color").value;
+            if (!name || !ects) {
+                Swal.showValidationMessage("Bitte alles ausfüllen");
+            }
+            return {name: name, ects: ects, color: color};
+        }
+    }).then((result) => {
+        if (result.value) {
+            e.setAttribute("name", result.value.name);
+            e.setAttribute("ects", result.value.ects);
+            e.setAttribute("color", result.value.color);
+            updateModule(e);
+        }
+    });
 }
