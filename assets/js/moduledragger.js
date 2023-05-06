@@ -83,10 +83,15 @@ function fixModule(module, event) {
 
     //
     if (found === undefined) {
-        if (semester !== undefined)
-            semester.insertBefore(module, semester.lastChild);
+        if (semester !== undefined) {
+            semester.appendChild(module);
+        }
     } else {
-        found.parentElement.insertBefore(module, found);
+        if (found.className.includes("spacer")) {
+            swapNodes(module, found);
+        } else {
+            found.parentElement.insertBefore(module, found);
+        }
     }
     module.style.position = '';
     module.style.zIndex = '';
@@ -118,12 +123,47 @@ function pruneModules() {
             row.removeChild(row.lastChild);
         }
         while (row.children.length < rowSize) {
-            let spacer = document.createElement("div");
-            spacer.className= "module spacer";
-            row.appendChild(spacer);
+            row.appendChild(getSpacer());
         }
     }
+}
 
+function getSpacer() {
+    let spacer = document.createElement("div");
+    spacer.className = "module spacer";
+    return spacer;
+}
+
+function getIndexInParent(module) {
+    for (let i = 0; i < module.parentElement.children.length; i++) {
+        if (module === module.parentElement.children.item(i))
+            return i;
+    }
+    return 0;
+}
+
+// https://itecnote.com/tecnote/javascript-swap-two-html-elements-and-preserve-event-listeners-on-them/
+function swapNodes(obj1, obj2) {
+    // save the location of obj2
+    var parent2 = obj2.parentNode;
+    var next2 = obj2.nextSibling;
+    // special case for obj1 is the next sibling of obj2
+    if (next2 === obj1) {
+        // just put obj1 before obj2
+        parent2.insertBefore(obj1, obj2);
+    } else {
+        // insert obj2 right before obj1
+        obj1.parentNode.insertBefore(obj2, obj1);
+
+        // now insert obj1 where obj2 was
+        if (next2) {
+            // if there was an element after obj2, then insert obj1 right before that
+            parent2.insertBefore(obj1, next2);
+        } else {
+            // otherwise, just append as last child
+            parent2.appendChild(obj1);
+        }
+    }
 }
 
 function initAllDragables() {
