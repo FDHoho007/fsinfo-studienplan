@@ -11,11 +11,11 @@ function get_luma(hex_color) {
 function csv_to_data(csv) {
     let data = [];
     for(let r of csv.split("\n")) {
-        if(r.trim() == "")
+        if(r.trim() === "")
             continue;
         let row = [];
         for(let m of r.split(";")) {
-            if(m.trim() == "")
+            if(m.trim() === "")
                 row.push(null);
             else {
                 let mod = {};
@@ -117,11 +117,11 @@ function save() {
 }
 
 function download(data, filename, type) {
-    var file = new Blob([data], {type: type});
+    let file = new Blob([data], {type: type});
     if (window.navigator.msSaveOrOpenBlob) // IE10+
         window.navigator.msSaveOrOpenBlob(file, filename);
     else { // Others
-        var a = document.createElement("a"),
+        let a = document.createElement("a"),
                 url = URL.createObjectURL(file);
         a.href = url;
         a.download = filename;
