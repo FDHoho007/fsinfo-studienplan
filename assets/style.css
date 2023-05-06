@@ -22,12 +22,11 @@ main {
 }
 
 #studienplan button {
-    margin-top: 50px;
+    margin: 50px 20px 0;
 }
 
 .semester {
     display: flex;
-    border-top: 2px solid #999999;
     padding: 7px;
 }
 
@@ -44,12 +43,23 @@ main {
     cursor: pointer; */
     color: white;
     user-select: none;
-    cursor: pointer;
 }
 
 .module div {
     width: 100%;
     word-wrap: break-word;
+}
+
+.title {
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+}
+
+.title hr {
+    width: 88%;
 }
 
 .spacer {
