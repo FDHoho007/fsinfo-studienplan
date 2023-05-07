@@ -65,21 +65,22 @@ function save() {
     let main = document.getElementById("studienplan");
     let data = [];
 
-    for (let r of main.children) {
-        let row = [];
-        for (let m of r.children) {
-            if (m.classList.contains("spacer"))
-                row.push(null);
-            else {
-                let mod = {};
-                mod.name = m.getAttribute("name");
-                mod.ects = m.getAttribute("ects");
-                mod.color = m.getAttribute("color");
-                row.push(mod);
+    for (let r of main.children)
+        if (r.classList.contains("semester")) {
+            let row = [];
+            for (let m of r.children) {
+                if (m.classList.contains("spacer"))
+                    row.push(null);
+                else {
+                    let mod = {};
+                    mod.name = m.getAttribute("name");
+                    mod.ects = m.getAttribute("ects");
+                    mod.color = m.getAttribute("color");
+                    row.push(mod);
+                }
             }
+            data.push(row);
         }
-        data.push(row);
-    }
 
     return data_to_csv(data);
 }
