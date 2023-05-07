@@ -73,8 +73,11 @@ function fixModule(module, event) {
     let found;
 
     for (let element of elements) {
-        if (element.id === "trash")
+        if (element.id === "trash") {
             module.remove();
+            pruneModules();
+            break;
+        }
         if (element.className.includes("module")) {
             if (element === module) {
                 continue;
@@ -151,14 +154,6 @@ function getSpacer() {
     let spacer = document.createElement("div");
     spacer.className = "module spacer";
     return spacer;
-}
-
-function getIndexInParent(module) {
-    for (let i = 0; i < module.parentElement.children.length; i++) {
-        if (module === module.parentElement.children.item(i))
-            return i;
-    }
-    return 0;
 }
 
 // https://itecnote.com/tecnote/javascript-swap-two-html-elements-and-preserve-event-listeners-on-them/
