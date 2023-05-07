@@ -74,3 +74,19 @@ main {
 #buttonBar button:active {
     background-color: darkblue;
 }
+
+#controls {
+    height: 90px;
+    line-height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#controls img {
+    max-height: 80px;
+}
+
+#controls div.module {
+    margin: 0 30px;
+}

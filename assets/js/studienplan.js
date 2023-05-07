@@ -4,7 +4,7 @@ function load(data_as_csv) {
 
     let main = document.getElementById("studienplan");
     main.style.display = "";
-    while (main.children.length > 0)
+    while (main.children.length > 1)
         main.children[0].remove();
 
     let width = Math.max(...data.map(i => i.length));
