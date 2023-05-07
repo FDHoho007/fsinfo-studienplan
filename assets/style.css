@@ -17,8 +17,7 @@ main {
 
 #studienplan {
     width: fit-content;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 50px;
 }
 
 .semester {

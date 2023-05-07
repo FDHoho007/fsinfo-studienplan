@@ -2,8 +2,8 @@ function load(data_as_csv) {
     document.getElementById("selection").style.display = "none";
     let data = csv_to_data(data_as_csv);
 
+    document.getElementById("editor").style.display = "";
     let main = document.getElementById("studienplan");
-    main.style.display = "";
     while (main.children.length > 1)
         main.children[0].remove();
 
@@ -54,10 +54,17 @@ function load(data_as_csv) {
     back_button.innerText = "Zurück";
     back_button.onclick = () => location.reload();
     buttonBar.appendChild(back_button);
-    let button = document.createElement("button");
-    button.innerText = "Als Datei speichern";
-    button.onclick = () => download(save(), "studienplan.csv", "text/csv");
-    buttonBar.appendChild(button);
+
+    let csvButton = document.createElement("button");
+    csvButton.innerText = "export CSV";
+    csvButton.onclick = () => download(save(), "studienplan.csv", "text/csv");
+    buttonBar.appendChild(csvButton);
+
+    let pdfButton = document.createElement("button");
+    pdfButton.innerText = "export PDF";
+    pdfButton.onclick = () => exportPDF();
+    buttonBar.appendChild(pdfButton);
+
     initAllDragables();
 }
 
@@ -181,16 +188,24 @@ function edit(e) {
 }
 
 function exportPDF() {
-    let doc = new jspdf.jsPDF();
-    let elementHandler = {
-        '#ignorePDF': function (element, renderer) {
-            return true;
-        }
-    };
     let source = window.document.getElementById("studienplan");
-    doc.fromHTML(source, 15, 15, {
-        'width': 180, 'elementHandlers': elementHandler
-    });
 
-    doc.output("dataurlnewwindow");
+    var style = window.getComputedStyle(source);
+
+    let width = source.offsetWidth + Number.parseInt(style.marginLeft) + Number.parseInt(style.marginRight);
+    let height = source.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
+
+    let doc;
+    if (source.scrollHeight < source.scrollWidth) {
+        doc = new jspdf.jsPDF('l', 'px', [height+1, width+1]);
+    } else {
+        doc = new jspdf.jsPDF('p', 'px', [width+1, height+1]);
+    }
+    window.html2canvas = html2canvas;
+    doc.html(source, {
+        margin: [0, 0, 0, 0],
+        callback: function (doc) {
+            doc.save();
+        }
+    });
 }
