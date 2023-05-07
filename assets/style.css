@@ -40,6 +40,20 @@ main {
     user-select: none;
 }
 
+#semesterCounter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 80px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: black;
+    font-size: 300%;
+}
+
 .module div {
     width: 100%;
     word-wrap: break-word;
