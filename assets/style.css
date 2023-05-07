@@ -21,10 +21,6 @@ main {
     margin-left: auto;
 }
 
-#studienplan button {
-    margin: 50px 20px 0;
-}
-
 .semester {
     display: flex;
     padding: 7px;
@@ -39,8 +35,7 @@ main {
     margin: 5px;
     padding: 5px;
     border-radius: 6px;
-    /*  This would be used for drag and drop
-    cursor: pointer; */
+    cursor: pointer;
     color: white;
     user-select: none;
 }
@@ -64,4 +59,14 @@ main {
 
 .spacer {
     cursor: auto;
+}
+
+#buttonBar button {
+    border-radius: 3px;
+    margin: 50px 20px 0;
+    background-color: blue;
+    color: white;
+    border-width: 0;
+    padding: 10px;
+    font-weight: bold;
 }

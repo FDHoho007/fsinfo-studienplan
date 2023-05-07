@@ -47,14 +47,20 @@ function load(data_as_csv) {
         main.appendChild(div_r);
         div_t.innerHTML = i++ + ". Semester (" + ects_sum + ")<hr>";
     }
+
+    let buttonBar = document.createElement("div");
+    buttonBar.id = "buttonBar";
+    main.parentElement.appendChild(buttonBar);
+
+    // Bottom Buttons
     let back_button = document.createElement("button");
     back_button.innerText = "Zurück";
     back_button.onclick = () => location.reload();
-    main.appendChild(back_button);
+    buttonBar.appendChild(back_button);
     let button = document.createElement("button");
     button.innerText = "Als Datei speichern";
     button.onclick = () => download(save(), "studienplan.csv", "text/csv");
-    main.appendChild(button);
+    buttonBar.appendChild(button);
     initAllDragables();
 }
 
@@ -81,11 +87,15 @@ function save() {
     return data_to_csv(data);
 }
 
+function addSemester() {
+    // TODO
+}
+
 function updateSemesterECTS() {
     let i = 1;
-    for(let title of document.querySelectorAll("#studienplan .title")) {
+    for (let title of document.querySelectorAll("#studienplan .title")) {
         let ects_sum = 0;
-        for(let mod of title.nextElementSibling.querySelectorAll(".module:not(.spacer)"))
+        for (let mod of title.nextElementSibling.querySelectorAll(".module:not(.spacer)"))
             ects_sum += parseInt(mod.getAttribute("ects"));
         title.innerHTML = i++ + ". Semester (" + ects_sum + ")<hr>";
     }
