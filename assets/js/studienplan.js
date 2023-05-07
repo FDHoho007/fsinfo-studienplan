@@ -26,9 +26,6 @@ function load(data_as_csv) {
                     div_m.setAttribute(key, mod[key]);
                 div_m.appendChild(document.createElement("div"));
                 updateModule(div_m);
-                // div_m.onclick = () => {
-                //     changeState(div_m);
-                // }
                 div_m.oncontextmenu = () => {
                     edit(div_m);
                     return false;
@@ -88,7 +85,24 @@ function save() {
 }
 
 function addSemester() {
-    // TODO
+    let main = document.getElementById("studienplan");
+    let div_t = document.createElement("div");
+    div_t.classList.add("title");
+    div_t.innerHTML = document.getElementsByClassName("title").length
+        + 1 + ". Semester (" + 0 + ")<hr>";
+    main.appendChild(div_t);
+
+    let div_r = document.createElement("div");
+    div_r.classList.add("semester");
+    main.appendChild(div_r);
+
+    pruneModules();
+}
+
+function removeSemester() {
+    let main = document.getElementById("studienplan");
+    main.removeChild(main.lastChild);
+    main.removeChild(main.lastChild);
 }
 
 function updateSemesterECTS() {
