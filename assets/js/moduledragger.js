@@ -201,4 +201,5 @@ document.getElementById("semesterCounter").onchange = () => {
     while (document.getElementsByClassName("semester").length < count) {
         addSemester();
     }
+    pruneModules();
 };
