@@ -181,13 +181,13 @@ function edit(e) {
 }
 
 function exportPDF() {
-    var doc = new jsPDF();
-    var elementHandler = {
+    let doc = new jspdf.jsPDF();
+    let elementHandler = {
         '#ignorePDF': function (element, renderer) {
             return true;
         }
     };
-    var source = window.document.getElementById("studienplan");
+    let source = window.document.getElementById("studienplan");
     doc.fromHTML(source, 15, 15, {
         'width': 180, 'elementHandlers': elementHandler
     });
