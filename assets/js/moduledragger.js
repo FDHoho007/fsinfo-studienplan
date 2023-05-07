@@ -111,7 +111,7 @@ function fixModule(module, event) {
                 module.previousElementSibling.remove();
         }
     }
-    if(module.classList.contains("new"))
+    if (module.classList.contains("new"))
         module.classList.remove("new");
     module.style.position = '';
     module.style.zIndex = '';
@@ -191,3 +191,14 @@ function initAllDragables() {
         addDraggable(e);
     }
 }
+
+
+document.getElementById("semesterCounter").onchange = () => {
+    let count = document.getElementById("semesterCounter").value;
+    while (document.getElementsByClassName("semester").length > count) {
+        removeSemester();
+    }
+    while (document.getElementsByClassName("semester").length < count) {
+        addSemester();
+    }
+};
