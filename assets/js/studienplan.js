@@ -40,10 +40,10 @@ function load(data_as_csv) {
             div_s.classList.add("spacer");
             div_r.appendChild(div_s);
         }
-        console.log(ects_sum);
         main.appendChild(div_r);
         div_t.innerHTML = i++ + ". Semester (" + ects_sum + ")<hr>";
     }
+    document.getElementById("semesterCounter").value = --i;
 
     let buttonBar = document.createElement("div");
     buttonBar.id = "buttonBar";
