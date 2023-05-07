@@ -23,6 +23,7 @@ function addDraggable(element) {
                     dragging = true;
                     element.style.position = 'absolute';
                     element.style.zIndex = 1000;
+                    element.parentElement.insertBefore(getSpacer(), element);
                     moveAt(event.pageX, event.pageY);
                 }
             }
@@ -82,6 +83,7 @@ function fixModule(module, event) {
     } else {
         if (found.className.includes("spacer")) {
             swapNodes(module, found);
+            found.remove();
         } else {
             found.parentElement.insertBefore(module, found);
         }
