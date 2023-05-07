@@ -62,11 +62,15 @@ main {
 }
 
 #buttonBar button {
-    border-radius: 3px;
+    border-radius: 5px;
     margin: 50px 20px 0;
     background-color: blue;
     color: white;
     border-width: 0;
     padding: 10px;
     font-weight: bold;
+}
+
+#buttonBar button:active {
+    background-color: darkblue;
 }
