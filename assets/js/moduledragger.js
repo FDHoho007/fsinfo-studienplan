@@ -75,8 +75,7 @@ function fixModule(module, event) {
     for (let element of elements) {
         if (element.id === "trash") {
             module.remove();
-            pruneModules();
-            break;
+            return;
         }
         if (element.className.includes("module")) {
             if (element === module) {
