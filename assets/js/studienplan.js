@@ -192,16 +192,15 @@ function exportPDF() {
 
     var style = window.getComputedStyle(source);
 
-    let width = source.offsetWidth + Number.parseInt(style.marginLeft) + Number.parseInt(style.marginRight);
-    let height = source.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
+    let width = source.offsetWidth;
+    let height = source.offsetHeight + Number.parseInt(style.paddingBottom);
 
     let doc;
-    if (source.scrollHeight < source.scrollWidth) {
+    if (height < width) {
         doc = new jspdf.jsPDF('l', 'px', [height+1, width+1]);
     } else {
         doc = new jspdf.jsPDF('p', 'px', [width+1, height+1]);
     }
-    window.html2canvas = html2canvas;
     doc.html(source, {
         margin: [0, 0, 0, 0],
         callback: function (doc) {
