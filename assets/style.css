@@ -24,7 +24,7 @@ main {
 
 .semester {
     display: flex;
-    padding: 7px;
+    padding: 4px;
 }
 
 .module {
@@ -33,7 +33,7 @@ main {
     justify-content: center;
     width: 145px;
     height: 80px;
-    margin: 5px;
+    margin: 0px 9px;
     padding: 5px;
     border-radius: 6px;
     cursor: pointer;
