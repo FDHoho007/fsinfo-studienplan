@@ -34,7 +34,7 @@ function load(data_as_csv) {
             }
             div_r.appendChild(div_m);
         }
-        for (let i = row.length; i < width; i++) {
+        for (let j = row.length; j < width; j++) {
             let div_s = document.createElement("div");
             div_s.classList.add("module");
             div_s.classList.add("spacer");
