@@ -25,7 +25,6 @@ function addDraggable(element) {
                         let newNew = element.cloneNode(true);
                         addDraggable(newNew);
                         element.parentElement.insertBefore(newNew, element);
-                        element.classList.remove("new");
                         element.oncontextmenu = () => {
                             edit(element);
                             return false;
@@ -89,17 +88,31 @@ function fixModule(module, event) {
     }
 
     if (found === undefined) {
-        if (semester !== undefined) {
+        if (semester !== undefined && semester !== module.parentElement)
             semester.appendChild(module);
+        else {
+            if (module.classList.contains("new"))
+                module.remove();
+            else
+                module.previousElementSibling.remove();
         }
     } else {
-        if (found.className.includes("spacer")) {
-            swapNodes(module, found);
-            found.remove();
-        } else {
-            found.parentElement.insertBefore(module, found);
+        if (!found.classList.contains("new"))
+            if (found.classList.contains("spacer")) {
+                swapNodes(module, found);
+                found.remove();
+            } else {
+                found.parentElement.insertBefore(module, found);
+            }
+        else {
+            if (module.classList.contains("new"))
+                module.remove();
+            else
+                module.previousElementSibling.remove();
         }
     }
+    if(module.classList.contains("new"))
+        module.classList.remove("new");
     module.style.position = '';
     module.style.zIndex = '';
 }
