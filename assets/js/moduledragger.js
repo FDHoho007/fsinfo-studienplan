@@ -21,9 +21,19 @@ function addDraggable(element) {
                     moveAt(event.pageX, event.pageY);
                 else if (Math.abs(origPos.x - event.clientX) + Math.abs(origPos.y - event.clientY) > 20) {
                     dragging = true;
+                    if (element.classList.contains("new")) {
+                        let newNew = element.cloneNode(true);
+                        addDraggable(newNew);
+                        element.parentElement.insertBefore(newNew, element);
+                        element.classList.remove("new");
+                        element.oncontextmenu = () => {
+                            edit(element);
+                            return false;
+                        }
+                    } else
+                        element.parentElement.insertBefore(getSpacer(), element);
                     element.style.position = 'absolute';
                     element.style.zIndex = 1000;
-                    element.parentElement.insertBefore(getSpacer(), element);
                     moveAt(event.pageX, event.pageY);
                 }
             }
@@ -64,6 +74,8 @@ function fixModule(module, event) {
     let found;
 
     for (let element of elements) {
+        if (element.id === "trash")
+            module.remove();
         if (element.className.includes("module")) {
             if (element === module) {
                 continue;

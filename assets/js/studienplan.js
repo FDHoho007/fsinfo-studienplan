@@ -174,6 +174,7 @@ function edit(e) {
             e.setAttribute("ects", result.value.ects);
             e.setAttribute("color", result.value.color);
             updateModule(e);
+            updateSemesterECTS();
         }
     });
 }
