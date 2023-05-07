@@ -1,19 +1,13 @@
 function addDraggable(element) {
-
     if (element.className.includes("spacer"))
         return;
 
     element.onmousedown = function (event) {
-
         if (event.button === 0) {
             let dragging = false;
             let shiftX = event.clientX - element.getBoundingClientRect().left;
             let shiftY = event.clientY - element.getBoundingClientRect().top;
             let origPos = {x: event.clientX, y: event.clientY};
-
-
-            //document.body.append(element);
-
 
             // moves the element at (pageX, pageY) coordinates
             // taking initial shifts into account
@@ -55,7 +49,6 @@ function addDraggable(element) {
     element.ondragstart = function () {
         return false;
     };
-
 }
 
 /**
@@ -82,7 +75,6 @@ function fixModule(module, event) {
         }
     }
 
-    //
     if (found === undefined) {
         if (semester !== undefined) {
             semester.appendChild(module);
@@ -104,7 +96,7 @@ function getRowSize() {
         let children = element.children;
         let count = 0;
         for (let i = children.length - 1; i >= 0; i--) {
-            if (count == 0 && children.item(i).className.includes("spacer"))
+            if (count === 0 && children.item(i).className.includes("spacer"))
                 continue;
             count++;
         }
@@ -116,7 +108,6 @@ function getRowSize() {
 }
 
 function pruneModules() {
-
     let rowSize = getRowSize();
     let rows = document.getElementsByClassName("semester");
     for (let row of rows) {
