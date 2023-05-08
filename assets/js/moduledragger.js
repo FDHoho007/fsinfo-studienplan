@@ -5,8 +5,8 @@ function addDraggable(element) {
     element.onmousedown = function (event) {
         if (event.button === 0) {
             let dragging = false;
-            let shiftX = event.clientX - element.getBoundingClientRect().left;
-            let shiftY = event.clientY - element.getBoundingClientRect().top;
+            let shiftX = element.offsetWidth/2;
+            let shiftY = element.offsetHeight/2;
             let origPos = {x: event.clientX, y: event.clientY};
 
             // moves the element at (pageX, pageY) coordinates
