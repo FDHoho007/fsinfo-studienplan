@@ -133,6 +133,8 @@ function updateModule(e) {
         e.style.background = e.getAttribute("color");
         if (get_luma(e.getAttribute("color")) > 145)
             e.style.color = "black";
+        else
+            e.style.color = "white";
         e.querySelector("div").style.textDecoration = "";
     }
     e.querySelector("div").innerText = getModuleName(name) + " (" + e.getAttribute("ects") + ")";
