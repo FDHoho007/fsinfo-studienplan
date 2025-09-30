@@ -33,6 +33,10 @@
     <div id="examples">
         <h3>Studienbeginn im Wintersemester</h3>
         <div id="ws">
+            <button onclick="fetch('examples/b-ai-wi.csv').then(r => r.text()).then(csv => load(csv))">
+                Bachelor Artificial Intelligence
+            </button>
+            <br>
             <button onclick="fetch('examples/b-inf-wi.csv').then(r => r.text()).then(csv => load(csv))">
                 Bachelor Informatik
             </button>
