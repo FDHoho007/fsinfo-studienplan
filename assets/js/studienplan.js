@@ -9,13 +9,16 @@ function load(data_as_csv) {
 
     let width = Math.max(...data.map(i => i.length));
     let i = 1;
+    let global_ects_sum = 0;
     for (let row of data) {
         let div_t = document.createElement("div");
         div_t.classList.add("title");
         main.appendChild(div_t);
         let div_r = document.createElement("div");
         div_r.classList.add("semester");
-        let ects_sum = 0;
+
+
+        let semester_ects_sum = 0;
         for (let mod of row) {
             let div_m = document.createElement("div");
             div_m.classList.add("module");
@@ -30,7 +33,7 @@ function load(data_as_csv) {
                     edit(div_m);
                     return false;
                 }
-                ects_sum += parseInt(mod.ects);
+                semester_ects_sum += parseInt(mod.ects);
             }
             div_r.appendChild(div_m);
         }
@@ -41,9 +44,13 @@ function load(data_as_csv) {
             div_r.appendChild(div_s);
         }
         main.appendChild(div_r);
-        div_t.innerHTML = i++ + ". Semester (" + ects_sum + ")<hr>";
+        div_t.innerHTML = i++ + ". Semester (" + semester_ects_sum + ")<hr>";
+
+        global_ects_sum += semester_ects_sum;
     }
     document.getElementById("semesterCounter").value = --i;
+
+    document.getElementById("studienplan-stats").innerText = "Gesamt-ECTS: " + global_ects_sum;
 
     let buttonBar = document.createElement("div");
     buttonBar.id = "buttonBar";
@@ -114,13 +121,18 @@ function removeSemester() {
 }
 
 function updateSemesterECTS() {
+    let global_ects_sum = 0;
     let i = 1;
     for (let title of document.querySelectorAll("#studienplan .title")) {
-        let ects_sum = 0;
+        let semester_ects_sum = 0;
         for (let mod of title.nextElementSibling.querySelectorAll(".module:not(.spacer)"))
-            ects_sum += parseInt(mod.getAttribute("ects"));
-        title.innerHTML = i++ + ". Semester (" + ects_sum + ")<hr>";
+            semester_ects_sum += parseInt(mod.getAttribute("ects"));
+        title.innerHTML = i++ + ". Semester (" + semester_ects_sum + ")<hr>";
+
+        global_ects_sum += semester_ects_sum;
     }
+
+    document.getElementById("studienplan-stats").innerText = "Gesamt-ECTS : " + global_ects_sum;
 }
 
 function updateModule(e) {
